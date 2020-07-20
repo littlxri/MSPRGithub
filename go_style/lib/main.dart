@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    result = "Obtennez de nouvelles réductions en scannant les réductions Go_Style sur nos support publicitaires !";
+    result = "La caméra n'a pas été autorisée.";
   }
   
   Future _scanQR() async {
@@ -45,7 +45,7 @@ class HomePageState extends State<HomePage> {
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          result = "La caméra n'a pas été autotrisée.";
+          result = "La caméra n'a pas été autorisée.";
         });
       } else {
         setState(() {
@@ -54,7 +54,7 @@ class HomePageState extends State<HomePage> {
       }
     } on FormatException {
       setState(() {
-        result = "Vous avez pressé le bouton retour, rien n'as été scanné";
+        result = "Vous avez pressé le bouton retour, rien n'a été scanné.";
       });
     } catch (ex) {
       setState(() {
@@ -122,7 +122,7 @@ class HomePageState extends State<HomePage> {
                 width: 350,
                 decoration: new BoxDecoration(
                   color: Colors.white,
-                  borderRadius: new BorderRadius.all(const Radius.circular(20.0),
+                  borderRadius: new BorderRadius.all( const Radius.circular(20.0),
               )
                 ),
                 child: new Stack(
@@ -132,7 +132,7 @@ class HomePageState extends State<HomePage> {
                     child: Text(
                       result,
                       textAlign: TextAlign.center, 
-                      style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                      style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, backgroundColor: Colors.white),
                     ),
                   )
                 ])
@@ -146,7 +146,7 @@ class HomePageState extends State<HomePage> {
 
   void _getData(code) async{
     //Appel a l'api
-    var request = "http://a147ecdcbf9d.ngrok.io/QrCode/" + code;
+    var request = "http://20953ab93ac5.ngrok.io/QrCode/" + code;
     var response = await http.get(Uri.encodeFull(request));
     switch (response.statusCode) {
       // L'api a fonctionnée correctement

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_style/discounts.dart';
 
@@ -89,34 +91,42 @@ class DiscountDisplayState extends State<DiscountDisplay> {
   }
 
   Widget _getListTile(i){
-    if (_discounts[i].date.isBefore(now)) {
+    if (_discounts[i].date.isAfter(now)) {
       return ListTile(
           //On récupére les 3 valeurss
             title: Text("${_discounts[i].code}", style: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
             subtitle: Text("${_discounts[i].value}", style: const TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold)),
-            trailing: Text("${_discounts[i].date.toString().substring(0,10)}", style: const TextStyle(fontSize: 20.0, color: Colors.red, fontWeight: FontWeight.bold)),
+            trailing: Text("${_discounts[i].date.toString().substring(0,10)}", style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
             leading: Icon(Icons.attach_money, color: Colors.green ,size: 40.0,
             )
           );
     } else {
       return ListTile(
           //On récupére les 3 valeurss
-            title: Text("${_discounts[i].code}", style: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
+            title: Text("${_discounts[i].code}", style: const TextStyle(fontSize: 28.0, color: Colors.red, fontWeight: FontWeight.bold)),
             subtitle: Text("${_discounts[i].value}", style: const TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold)),
             leading: Icon(Icons.attach_money, color: Colors.red ,size: 40.0),
-            trailing: new Stack(
+            trailing: new Container(
+              width: 50,
+              child: new Stack(
               children: <Widget>[
               Align(
-                alignment: Alignment.centerLeft,
-                child: Text("${_discounts[i].date.toString().substring(0,10)}", style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                
-            
-            
-          )
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(Icons.cancel, 
+                  color: Colors.red,
+                  size: 40.0,),
+                onPressed: () => _deleteDiscount(_discounts[i].code),
+            ))
           ]
         )
+      )
       );
     }
+  }
+
+  void _deleteDiscount(String code) async{
+    log("Ca marche");
   }
 
   // On affiche une pop up si aucune remise n'est en cache

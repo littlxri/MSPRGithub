@@ -13,7 +13,7 @@ app.use(
 )
 
 app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
+    response.json({ info: ' ExpressNode.js,, and Postgres API' })
   })
 
 app.listen(port, () => {
